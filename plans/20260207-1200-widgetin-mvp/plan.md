@@ -20,7 +20,7 @@ Android-first with iOS-ready architecture.
 
 | # | Phase | Status | Progress | File |
 |---|-------|--------|----------|------|
-| 01 | Project Setup & Architecture | Pending | 0% | [phase-01](phase-01-project-setup.md) |
+| 01 | Project Setup & Architecture | Done | 100% | [phase-01](phase-01-project-setup.md) |
 | 02 | Lunar Calendar Core Logic | Pending | 0% | [phase-02](phase-02-lunar-calendar-logic.md) |
 | 03 | Dashboard UI | Pending | 0% | [phase-03](phase-03-dashboard-ui.md) |
 | 04 | Widget Editor | Pending | 0% | [phase-04](phase-04-widget-editor.md) |
@@ -38,3 +38,7 @@ Android-first with iOS-ready architecture.
 - `updatePeriodMillis` minimum 15min; daily update sufficient for calendar
 - Lunar converter verified 1900-2100; Can Chi via simple modular arithmetic
 - Giờ Hoàng Đạo: 6 static lookup patterns, no astronomical calculation needed
+
+---
+
+**Phase 01 completed: 2026-02-08**
