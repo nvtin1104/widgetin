@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/home_shell.dart';
 import 'theme/app_theme.dart';
 
 class WidgetinApp extends StatelessWidget {
@@ -10,11 +11,7 @@ class WidgetinApp extends StatelessWidget {
       title: 'Widgetin',
       theme: AppTheme.light,
       debugShowCheckedModeBanner: false,
-      home: const Scaffold(
-        body: Center(
-          child: Text('Widgetin'),
-        ),
-      ),
+      home: const HomeShell(),
     );
   }
 }
