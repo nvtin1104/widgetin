@@ -1,4 +1,4 @@
-import 'package:lunar_calendar_converter/lunar_solar_converter.dart';
+import 'package:lunar_calendar_converter_new/lunar_solar_converter.dart';
 import '../models/lunar_date.dart';
 import '../utils/can_chi_helper.dart';
 import '../utils/hoang_dao_helper.dart';
@@ -33,7 +33,7 @@ class LunarCalendarService {
       lunarDay: lunar.lunarDay!,
       lunarMonth: lunar.lunarMonth!,
       lunarYear: lunar.lunarYear!,
-      isLeapMonth: lunar.isLeap ?? false,
+      isLeapMonth: lunar.isLeap,
       canChiYear: canChiYear,
       canChiMonth: canChiMonth,
       canChiDay: canChiDay,

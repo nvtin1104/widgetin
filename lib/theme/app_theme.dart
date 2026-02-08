@@ -20,7 +20,7 @@ class AppTheme {
         foregroundColor: ColorTokens.darkText,
         elevation: 0,
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         elevation: 1,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
