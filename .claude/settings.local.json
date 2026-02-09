@@ -2,7 +2,32 @@
   "permissions": {
     "allow": [
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(dir:*)",
+      "Bash(flutter --version:*)",
+      "Bash(where:*)",
+      "Bash(flutter analyze:*)",
+      "WebFetch(domain:pub.dev)",
+      "WebSearch",
+      "Bash(ls:*)",
+      "Bash(where.exe:*)",
+      "Bash(powershell -Command \"1..10 | ForEach-Object { ''y'' } | & ''C:\\\\code\\\\flutter\\\\bin\\\\flutter.bat'' doctor --android-licenses\")",
+      "Bash(powershell -Command:*)",
+      "Bash(\"C:\\\\code\\\\flutter\\\\bin\\\\flutter.bat\" doctor)",
+      "Bash(\"C:\\\\code\\\\flutter\\\\bin\\\\flutter.bat\" analyze)",
+      "Bash(\"C:\\\\code\\\\flutter\\\\bin\\\\flutter.bat\" test)",
+      "Bash(C:codeflutterbinflutter analyze)",
+      "Bash(cmd.exe /c \"cd /d C:\\\\project\\\\widgetin\\\\app && C:\\\\code\\\\flutter\\\\bin\\\\flutter analyze\")",
+      "Bash(cmd.exe /c \"cd /d C:\\\\project\\\\widgetin\\\\app && C:\\\\code\\\\flutter\\\\bin\\\\flutter.bat analyze\")",
+      "Bash(powershell.exe -Command \"cd C:\\\\project\\\\widgetin\\\\app; C:\\\\code\\\\flutter\\\\bin\\\\flutter.bat analyze 2>&1\")",
+      "Bash(powershell.exe -Command \"C:\\\\code\\\\flutter\\\\bin\\\\flutter.bat emulators 2>&1\")",
+      "Bash(powershell.exe -Command \"cd C:\\\\project\\\\widgetin\\\\app; C:\\\\code\\\\flutter\\\\bin\\\\flutter.bat run -d emulator-5554 2>&1\")",
+      "Bash(powershell.exe:*)",
+      "Bash(cmd.exe /c:*)",
+      "Bash(/c/code/flutter/bin/flutter run:*)",
+      "Bash(xxd:*)",
+      "Bash(/c/code/flutter/bin/flutter analyze:*)",
+      "Bash(/c/code/flutter/bin/flutter test:*)"
     ]
   }
 }
