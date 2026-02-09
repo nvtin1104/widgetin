@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/lunar_calendar_provider.dart';
+import '../providers/widget_config_provider.dart';
 import '../theme/color_tokens.dart';
-import '../widgets/lunar_calendar_preview.dart';
+import '../widgets/widget_live_preview.dart';
 import '../widgets/widget_preview_card.dart';
 import 'widget_editor_screen.dart';
 
@@ -59,9 +60,9 @@ class _DashboardScreenState extends State<DashboardScreen>
               ),
             ),
             const SizedBox(height: 12),
-            Consumer<LunarCalendarProvider>(
-              builder: (context, provider, child) {
-                final lunar = provider.todayLunar;
+            Consumer2<LunarCalendarProvider, WidgetConfigProvider>(
+              builder: (context, lunarProvider, configProvider, child) {
+                final lunar = lunarProvider.todayLunar;
                 if (lunar == null) {
                   return const Center(
                     child: Padding(
@@ -75,8 +76,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                   child: WidgetPreviewCard(
                     icon: Icons.calendar_month_rounded,
                     title: 'Âm Lịch',
-                    subtitle: 'Vietnamese Lunar Calendar',
-                    preview: LunarCalendarPreview(lunarDate: lunar),
+                    subtitle: configProvider.config.widgetType.description,
+                    preview: const WidgetLivePreview(),
                     onCustomize: () {
                       Navigator.push(
                         context,

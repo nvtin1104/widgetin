@@ -2,11 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:widgetin/providers/lunar_calendar_provider.dart';
+import 'package:widgetin/providers/widget_config_provider.dart';
 import 'package:widgetin/screens/home_shell.dart';
 
 Widget createTestApp() {
-  return ChangeNotifierProvider(
-    create: (_) => LunarCalendarProvider()..loadToday(),
+  return MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (_) => LunarCalendarProvider()..loadToday(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => WidgetConfigProvider(),
+      ),
+    ],
     child: const MaterialApp(home: HomeShell()),
   );
 }

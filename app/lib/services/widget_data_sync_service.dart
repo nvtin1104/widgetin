@@ -31,7 +31,7 @@ class WidgetDataSyncService {
     ]);
   }
 
-  /// Sync widget config (colors, border radius) to SharedPreferences.
+  /// Sync widget config (colors, type, style) to SharedPreferences.
   static Future<void> syncConfig(WidgetConfig config) async {
     await Future.wait([
       HomeWidget.saveWidgetData(
@@ -43,6 +43,10 @@ class WidgetDataSyncService {
         config.textColor.toARGB32(),
       ),
       HomeWidget.saveWidgetData('widget_border_radius', config.borderRadius),
+      HomeWidget.saveWidgetData('widget_type', config.widgetType.index),
+      HomeWidget.saveWidgetData('widget_bg_type', config.backgroundType.index),
+      HomeWidget.saveWidgetData('widget_show_year', config.showYearInfo),
+      HomeWidget.saveWidgetData('widget_show_zodiac', config.showZodiacHours),
     ]);
   }
 

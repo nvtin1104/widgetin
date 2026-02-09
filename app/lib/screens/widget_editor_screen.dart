@@ -1,6 +1,7 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../models/widget_type.dart';
 import '../providers/lunar_calendar_provider.dart';
 import '../providers/widget_config_provider.dart';
 import '../theme/color_tokens.dart';
@@ -14,7 +15,7 @@ class WidgetEditorScreen extends StatelessWidget {
     return Hero(
       tag: 'lunar-widget-card',
       child: Scaffold(
-        appBar: AppBar(title: const Text('Customize Widget')),
+        appBar: AppBar(title: const Text('Tùy chỉnh Widget')),
         body: Consumer<WidgetConfigProvider>(
           builder: (context, provider, child) {
             final config = provider.config;
@@ -22,34 +23,91 @@ class WidgetEditorScreen extends StatelessWidget {
             return ListView(
               padding: const EdgeInsets.all(16),
               children: [
-                // Live preview with animated container
+                // Live preview
                 const WidgetLivePreview(),
-                const SizedBox(height: 24),
+                const SizedBox(height: 20),
+
+                // --- Layer 1: Widget Type ---
+                const _SectionHeader(label: 'Kiểu hiển thị'),
+                const SizedBox(height: 8),
+                SegmentedButton<WidgetType>(
+                  segments: WidgetType.values.map((type) {
+                    return ButtonSegment(
+                      value: type,
+                      label: Text(type.displayName, style: const TextStyle(fontSize: 12)),
+                    );
+                  }).toList(),
+                  selected: {config.widgetType},
+                  onSelectionChanged: (selected) {
+                    provider.updateWidgetType(selected.first);
+                  },
+                  showSelectedIcon: false,
+                ),
+                const SizedBox(height: 20),
+
+                // --- Layer 2: Background ---
+                const _SectionHeader(label: 'Nền'),
+                const SizedBox(height: 8),
+                SegmentedButton<BackgroundType>(
+                  segments: BackgroundType.values.map((type) {
+                    return ButtonSegment(
+                      value: type,
+                      label: Text(type.displayName, style: const TextStyle(fontSize: 12)),
+                    );
+                  }).toList(),
+                  selected: {config.backgroundType},
+                  onSelectionChanged: (selected) {
+                    provider.updateBackgroundType(selected.first);
+                  },
+                  showSelectedIcon: false,
+                ),
+                const SizedBox(height: 12),
 
                 // Background color
                 _ColorPickerTile(
-                  label: 'Background Color',
+                  label: 'Màu nền',
                   color: config.backgroundColor,
                   onColorChanged: provider.updateBackgroundColor,
                 ),
-                const SizedBox(height: 16),
+
+                // Gradient end color (only if gradient)
+                if (config.backgroundType == BackgroundType.gradient) ...[
+                  _ColorPickerTile(
+                    label: 'Màu chuyển',
+                    color: config.gradientEndColor,
+                    onColorChanged: provider.updateGradientEndColor,
+                  ),
+                ],
 
                 // Text color
                 _ColorPickerTile(
-                  label: 'Text Color',
+                  label: 'Màu chữ',
                   color: config.textColor,
                   onColorChanged: provider.updateTextColor,
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 16),
+
+                // --- Layer 2: Typography ---
+                const _SectionHeader(label: 'Kiểu chữ'),
+                const SizedBox(height: 8),
+                SegmentedButton<TypographyStyle>(
+                  segments: TypographyStyle.values.map((style) {
+                    return ButtonSegment(
+                      value: style,
+                      label: Text(style.displayName, style: const TextStyle(fontSize: 12)),
+                    );
+                  }).toList(),
+                  selected: {config.typographyStyle},
+                  onSelectionChanged: (selected) {
+                    provider.updateTypographyStyle(selected.first);
+                  },
+                  showSelectedIcon: false,
+                ),
+                const SizedBox(height: 16),
 
                 // Border radius
-                Text(
-                  'Border Radius',
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        color: ColorTokens.darkText,
-                      ),
-                ),
-                const SizedBox(height: 8),
+                const _SectionHeader(label: 'Bo góc'),
+                const SizedBox(height: 4),
                 Row(
                   children: [
                     Expanded(
@@ -72,9 +130,32 @@ class WidgetEditorScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: 16),
 
-                // Save button with tap feedback
+                // --- Layer 2: Visibility Toggles ---
+                const _SectionHeader(label: 'Hiển thị thông tin'),
+                const SizedBox(height: 4),
+                SwitchListTile(
+                  title: const Text('Năm Can Chi'),
+                  value: config.showYearInfo,
+                  onChanged: (v) => provider.updateShowYearInfo(v),
+                  dense: true,
+                ),
+                SwitchListTile(
+                  title: const Text('Giờ Hoàng Đạo'),
+                  value: config.showZodiacHours,
+                  onChanged: (v) => provider.updateShowZodiacHours(v),
+                  dense: true,
+                ),
+                SwitchListTile(
+                  title: const Text('Tiết khí'),
+                  value: config.showSolarTerms,
+                  onChanged: (v) => provider.updateShowSolarTerms(v),
+                  dense: true,
+                ),
+                const SizedBox(height: 24),
+
+                // Save button
                 _SaveButton(
                   onPressed: () => _saveConfig(context, provider),
                 ),
@@ -91,27 +172,41 @@ class WidgetEditorScreen extends StatelessWidget {
     WidgetConfigProvider provider,
   ) async {
     try {
-      final lunarDate =
-          context.read<LunarCalendarProvider>().todayLunar;
+      final lunarDate = context.read<LunarCalendarProvider>().todayLunar;
       await provider.saveConfig(lunarDate: lunarDate);
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Widget settings saved')),
+          const SnackBar(content: Text('Đã lưu cài đặt widget')),
         );
       }
     } catch (e) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to save: $e')),
+          SnackBar(content: Text('Lỗi: $e')),
         );
       }
     }
   }
 }
 
+class _SectionHeader extends StatelessWidget {
+  final String label;
+  const _SectionHeader({required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      label,
+      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+            color: ColorTokens.darkText,
+            fontWeight: FontWeight.w600,
+          ),
+    );
+  }
+}
+
 class _SaveButton extends StatefulWidget {
   final VoidCallback onPressed;
-
   const _SaveButton({required this.onPressed});
 
   @override
@@ -129,8 +224,6 @@ class _SaveButtonState extends State<_SaveButton>
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 150),
-      lowerBound: 0.0,
-      upperBound: 1.0,
     );
     _scale = Tween<double>(begin: 1.0, end: 0.95).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
@@ -158,7 +251,7 @@ class _SaveButtonState extends State<_SaveButton>
         child: ElevatedButton.icon(
           onPressed: _handleTap,
           icon: const Icon(Icons.save_rounded),
-          label: const Text('Save & Apply'),
+          label: const Text('Lưu & Áp dụng'),
         ),
       ),
     );
@@ -186,8 +279,8 @@ class _ColorPickerTile extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              width: 40,
-              height: 40,
+              width: 36,
+              height: 36,
               decoration: BoxDecoration(
                 color: color,
                 borderRadius: BorderRadius.circular(8),
@@ -196,16 +289,16 @@ class _ColorPickerTile extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(width: 16),
+            const SizedBox(width: 12),
             Expanded(
               child: Text(
                 label,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: ColorTokens.darkText,
                     ),
               ),
             ),
-            const Icon(Icons.chevron_right, color: ColorTokens.mutedText),
+            const Icon(Icons.chevron_right, color: ColorTokens.mutedText, size: 20),
           ],
         ),
       ),

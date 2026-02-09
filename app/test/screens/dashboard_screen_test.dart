@@ -33,7 +33,6 @@ void main() {
       await tester.pumpWidget(createTestApp());
       await tester.pumpAndSettle();
       expect(find.text('Âm Lịch'), findsOneWidget);
-      expect(find.text('Vietnamese Lunar Calendar'), findsOneWidget);
     });
 
     testWidgets('shows Customize button', (tester) async {
@@ -47,20 +46,20 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.text('Customize'));
       await tester.pumpAndSettle();
-      expect(find.text('Customize Widget'), findsOneWidget);
+      expect(find.text('Tùy chỉnh Widget'), findsOneWidget);
     });
 
     testWidgets('shows Can Chi year info', (tester) async {
       await tester.pumpWidget(createTestApp());
       await tester.pumpAndSettle();
-      // Current year 2026 = Bính Ngọ
-      expect(find.textContaining('Năm'), findsOneWidget);
+      expect(find.textContaining('Năm'), findsWidgets);
     });
 
-    testWidgets('shows Hoang Dao hours section', (tester) async {
+    testWidgets('shows widget type description as subtitle', (tester) async {
       await tester.pumpWidget(createTestApp());
       await tester.pumpAndSettle();
-      expect(find.text('Giờ Hoàng Đạo'), findsOneWidget);
+      // Default widget type is digitalClock = "Giờ số kèm ngày âm lịch"
+      expect(find.text('Giờ số kèm ngày âm lịch'), findsOneWidget);
     });
 
     testWidgets('shows loading indicator when provider has no data', (tester) async {
