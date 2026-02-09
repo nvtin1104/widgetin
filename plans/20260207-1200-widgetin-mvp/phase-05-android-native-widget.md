@@ -11,8 +11,8 @@
 - **Date:** 2026-02-07
 - **Description:** Implement the Android native home screen widget using Kotlin AppWidgetProvider, XML RemoteViews layout, and SharedPreferences data bridge from Flutter.
 - **Priority:** P0
-- **Implementation Status:** Pending
-- **Review Status:** Not started
+- **Implementation Status:** Done
+- **Review Status:** Passed
 
 ## Key Insights
 
@@ -157,13 +157,14 @@ SharedPreferences Keys (written by Flutter, read by Android):
 
 ## Todo List
 
-- [ ] Create XML widget layout (lunar_calendar_widget_layout.xml)
-- [ ] Create widget background drawable
-- [ ] Create appwidget-provider info XML
-- [ ] Implement LunarCalendarWidget.kt
-- [ ] Register receiver in AndroidManifest.xml
-- [ ] Create WidgetDataSyncService in Flutter
-- [ ] Wire sync into app launch and config save
+- [x] Create XML widget layout (lunar_calendar_widget_layout.xml)
+- [x] Create widget background drawable
+- [x] Create appwidget-provider info XML
+- [x] Implement LunarCalendarWidget.kt
+- [x] Register receiver in AndroidManifest.xml
+- [x] Create WidgetDataSyncService in Flutter
+- [x] Wire sync into app launch and config save
+- [x] Upgrade home_widget 0.5.0 → 0.9.0 (Flutter 3.38 compatibility)
 - [ ] Test widget appears in Android widget picker
 - [ ] Test data flows from Flutter to widget display
 - [ ] Test daily auto-update

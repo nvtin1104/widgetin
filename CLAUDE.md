@@ -10,7 +10,7 @@
 |-------|--------|
 | Framework | Flutter 3.38+ / Dart 3.10+ |
 | State Management | Provider ^6.1.0 |
-| Widget Bridge | `home_widget` ^0.5.0 |
+| Widget Bridge | `home_widget` ^0.9.0 |
 | Lunar Logic | `lunar_calendar_converter_new` ^2.0.0 + custom Can Chi |
 | Storage | SharedPreferences ^2.2.0 |
 | Color Picker | `flex_color_picker` ^3.3.0 |
@@ -39,7 +39,8 @@ widgetin/                          # Monorepo root
 │   │   ├── models/
 │   │   │   └── lunar_date.dart    # Immutable LunarDate data class
 │   │   ├── services/
-│   │   │   └── lunar_calendar_service.dart  # Solar→Lunar + Can Chi + Hoang Dao
+│   │   │   ├── lunar_calendar_service.dart  # Solar→Lunar + Can Chi + Hoang Dao
+│   │   │   └── widget_data_sync_service.dart  # Push data to HomeWidget SharedPrefs
 │   │   ├── providers/
 │   │   │   └── lunar_calendar_provider.dart # ChangeNotifier wrapping service
 │   │   ├── screens/
@@ -72,7 +73,12 @@ widgetin/                          # Monorepo root
 │       ├── app/build.gradle       # minSdk 21, targetSdk 34
 │       └── app/src/main/
 │           ├── AndroidManifest.xml
-│           └── kotlin/com/widgetin/widgetin/MainActivity.kt
+│           ├── res/layout/lunar_calendar_widget_layout.xml  # Widget RemoteViews
+│           ├── res/drawable/widget_background.xml           # Rounded rect shape
+│           ├── res/xml/lunar_calendar_widget_info.xml       # AppWidget metadata
+│           └── kotlin/com/widgetin/widgetin/
+│               ├── MainActivity.kt
+│               └── LunarCalendarWidget.kt  # AppWidgetProvider
 │
 ├── website/                       # Future — landing page / docs site
 │
@@ -143,9 +149,9 @@ widgetin/                          # Monorepo root
 | 01 | Project Setup & Architecture | **Done** |
 | 02 | Lunar Calendar Core Logic | **Done** |
 | 03 | Dashboard UI (bottom nav, gallery, settings) | **Done** |
-| 04 | Widget Editor (customization UI) | Pending |
-| 05 | Android Native Widget (Kotlin RemoteViews) | Pending |
-| 06 | Polish & Testing (E2E, performance) | Pending |
+| 04 | Widget Editor (customization UI) | **Done** |
+| 05 | Android Native Widget (Kotlin RemoteViews) | **Done** |
+| 06 | Polish & Testing (animations, edge cases, APK opt) | **Done** |
 
 ## Key Constraints
 

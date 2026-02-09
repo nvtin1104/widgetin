@@ -15,11 +15,8 @@ Widget createTestApp() {
         create: (_) => WidgetConfigProvider(),
       ),
     ],
-    child: MaterialApp(
-      home: const Scaffold(body: DashboardScreen()),
-      routes: {
-        '/editor': (_) => const Scaffold(body: Text('Editor')),
-      },
+    child: const MaterialApp(
+      home: Scaffold(body: DashboardScreen()),
     ),
   );
 }
@@ -50,7 +47,7 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.text('Customize'));
       await tester.pumpAndSettle();
-      expect(find.text('Editor'), findsOneWidget);
+      expect(find.text('Customize Widget'), findsOneWidget);
     });
 
     testWidgets('shows Can Chi year info', (tester) async {

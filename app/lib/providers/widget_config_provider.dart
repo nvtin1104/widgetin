@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../models/lunar_date.dart';
 import '../models/widget_config.dart';
+import '../services/widget_data_sync_service.dart';
 
 class WidgetConfigProvider extends ChangeNotifier {
   static const _keyBgColor = 'widget_bg_color';
@@ -25,11 +27,19 @@ class WidgetConfigProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> saveConfig() async {
+  Future<void> saveConfig({LunarDate? lunarDate}) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt(_keyBgColor, _config.backgroundColor.toARGB32());
     await prefs.setInt(_keyTextColor, _config.textColor.toARGB32());
     await prefs.setDouble(_keyBorderRadius, _config.borderRadius);
+
+    // Sync config to native widget SharedPreferences
+    if (lunarDate != null) {
+      await WidgetDataSyncService.syncAll(lunarDate, _config);
+    } else {
+      await WidgetDataSyncService.syncConfig(_config);
+      await WidgetDataSyncService.updateWidget();
+    }
   }
 
   void updateBackgroundColor(Color color) {

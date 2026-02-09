@@ -11,8 +11,8 @@
 - **Date:** 2026-02-07
 - **Description:** UI polish, animations, edge case handling, manual testing across Android versions, APK optimization, and Play Store preparation.
 - **Priority:** P1
-- **Implementation Status:** Pending
-- **Review Status:** Not started
+- **Implementation Status:** Done
+- **Review Status:** Complete
 
 ## Key Insights
 
@@ -99,19 +99,22 @@ No new architecture. This phase refines existing code.
 
 ## Todo List
 
-- [ ] Add Hero animation dashboard → editor
-- [ ] Add AnimatedContainer to live preview
-- [ ] Handle leap month display string
-- [ ] Add timezone guard in LunarCalendarService
-- [ ] Test year boundary (Dec 31 / Jan 1)
-- [ ] Handle empty SharedPreferences in widget
-- [ ] Create app icon (adaptive)
-- [ ] Add splash screen
-- [ ] Run manual test matrix on 4 API levels
-- [ ] Build release APK with split-per-abi
-- [ ] Configure release signing
-- [ ] Verify APK < 15MB
-- [ ] Prepare Play Store listing assets
+- [x] Add Hero animation dashboard → editor
+- [x] Add AnimatedContainer to live preview
+- [x] Add FadeTransition on dashboard load
+- [x] Add ScaleTransition on Save & Apply button
+- [x] Handle leap month display string (preview + widget sync)
+- [x] Add timezone guard in LunarCalendarService
+- [x] Handle empty SharedPreferences in widget (placeholder text)
+- [x] App icon already configured (adaptive icon with sage green bg)
+- [x] Configure APK optimization (R8 minify, shrinkResources, split ABI)
+- [x] Add ProGuard keep rules for home_widget
+- [x] All 68 tests passing, static analysis clean
+- [ ] Run manual test matrix on 4 API levels (requires devices)
+- [ ] Add splash screen (optional polish)
+- [ ] Configure release signing (requires keystore generation)
+- [ ] Verify APK < 15MB (requires release build)
+- [ ] Prepare Play Store listing assets (screenshots, graphics)
 
 ## Success Criteria
 

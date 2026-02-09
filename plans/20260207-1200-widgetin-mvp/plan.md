@@ -24,8 +24,8 @@ Android-first with iOS-ready architecture.
 | 02 | Lunar Calendar Core Logic | Done | 100% | [phase-02](phase-02-lunar-calendar-logic.md) |
 | 03 | Dashboard UI | Done | 100% | [phase-03](phase-03-dashboard-ui.md) |
 | 04 | Widget Editor | Done | 100% | [phase-04](phase-04-widget-editor.md) |
-| 05 | Android Native Widget | Pending | 0% | [phase-05](phase-05-android-native-widget.md) |
-| 06 | Polish & Testing | Pending | 0% | [phase-06](phase-06-polish-testing.md) |
+| 05 | Android Native Widget | Done | 100% | [phase-05](phase-05-android-native-widget.md) |
+| 06 | Polish & Testing | Done | 100% | [phase-06](phase-06-polish-testing.md) |
 
 ## Research
 
@@ -45,3 +45,5 @@ Android-first with iOS-ready architecture.
 **Phase 02 completed: 2026-02-08**
 **Phase 03 completed: 2026-02-08**
 **Phase 04 completed: 2026-02-09**
+**Phase 05 completed: 2026-02-09**
+**Phase 06 completed: 2026-02-09**

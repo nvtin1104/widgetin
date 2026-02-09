@@ -42,7 +42,10 @@ class LunarCalendarService {
   }
 
   /// Get today's lunar date info.
+  /// Uses local time to ensure correct date at midnight boundary.
+  /// Vietnam is UTC+7 (no DST), so `.toLocal()` handles this on-device.
   LunarDate getToday() {
-    return getLunarDate(DateTime.now());
+    final now = DateTime.now().toLocal();
+    return getLunarDate(DateTime(now.year, now.month, now.day));
   }
 }

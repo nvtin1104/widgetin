@@ -16,7 +16,9 @@ class WidgetLivePreview extends StatelessWidget {
 
         return AspectRatio(
           aspectRatio: 2 / 1,
-          child: Container(
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
             decoration: BoxDecoration(
               color: config.backgroundColor,
               borderRadius: BorderRadius.circular(config.borderRadius),
@@ -41,6 +43,9 @@ class WidgetLivePreview extends StatelessWidget {
 
   Widget _buildContent(BuildContext context, LunarDate lunar, Color textColor) {
     final mutedColor = textColor.withValues(alpha: 0.5);
+    final monthLabel = lunar.isLeapMonth
+        ? 'Tháng ${lunar.lunarMonth} (nhuận)'
+        : 'Tháng ${lunar.lunarMonth}';
 
     return Row(
       children: [
@@ -61,7 +66,7 @@ class WidgetLivePreview extends StatelessWidget {
               ),
               const SizedBox(height: 2),
               Text(
-                'Tháng ${lunar.lunarMonth}',
+                monthLabel,
                 style: TextStyle(fontSize: 12, color: mutedColor),
               ),
             ],
