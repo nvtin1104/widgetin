@@ -5,22 +5,24 @@ build/
 *.iml
 .flutter-plugins
 .flutter-plugins-dependencies
+**/GeneratedPluginRegistrant.java
 
 # Android
-android/.gradle/
-android/app/debug/
-android/app/profile/
-android/app/release/
-android/local.properties
-android/key.properties
+**/.gradle/
+**/local.properties
+**/app/debug/
+**/app/profile/
+**/app/release/
+**/key.properties
 *.jks
 *.keystore
+**/gradle-wrapper.jar
 
 # iOS
-ios/Pods/
-ios/.symlinks/
-ios/Flutter/Flutter.framework
-ios/Flutter/Flutter.podspec
+**/Pods/
+**/.symlinks/
+**/Flutter/Flutter.framework
+**/Flutter/Flutter.podspec
 
 # IDE
 .idea/

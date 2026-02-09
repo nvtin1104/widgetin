@@ -2,58 +2,107 @@
 
 ## Project Overview
 
-**Widgetin** ("Widget I Need") is a Flutter mobile app for creating and managing Android home screen widgets. The MVP delivers a **Vietnamese Lunar Calendar widget** with customizable appearance. Android-first with iOS-ready architecture.
+**Widgetin** ("Widget I Need") is a Flutter mobile app for creating and managing Android home screen widgets. The MVP delivers a **Vietnamese Lunar Calendar widget** with customizable appearance. Android-first with iOS-ready architecture. **Monorepo structure** with `app/` (Flutter) and `website/` (future).
 
 ## Tech Stack
 
 | Layer | Choice |
 |-------|--------|
-| Framework | Flutter 3.x + Dart (SDK >=3.0.0 <4.0.0) |
+| Framework | Flutter 3.38+ / Dart 3.10+ |
 | State Management | Provider ^6.1.0 |
 | Widget Bridge | `home_widget` ^0.5.0 |
-| Lunar Logic | `lunar_calendar_converter` ^1.1.0 + custom Can Chi |
+| Lunar Logic | `lunar_calendar_converter_new` ^2.0.0 + custom Can Chi |
 | Storage | SharedPreferences ^2.2.0 |
 | Color Picker | `flex_color_picker` ^3.3.0 |
 | Native Android | Kotlin AppWidgetProvider + XML RemoteViews |
 | Design System | Material You / useMaterial3, pastel color tokens |
 | Testing | flutter_test + flutter_lints ^3.0.0 |
 
-## Architecture
+## Project Tree
 
 ```
-lib/
-├── main.dart              # Entry point — MultiProvider wraps WidgetinApp
-├── app.dart               # MaterialApp with AppTheme.light, no debug banner
-├── models/                # Immutable data classes (const constructors)
-│   └── lunar_date.dart    # LunarDate: solar↔lunar, Can Chi, Hoang Dao
-├── services/              # Business logic facades
-│   └── lunar_calendar_service.dart  # Solar→Lunar + Can Chi + Hoang Dao
-├── providers/             # Provider ChangeNotifiers (state management)
-├── screens/               # Full-page screens (Dashboard, Editor, Settings)
-├── widgets/               # Reusable UI components
-├── theme/
-│   ├── app_theme.dart     # ThemeData — Material You, rounded corners
-│   └── color_tokens.dart  # Pastel palette constants
-└── utils/
-    ├── can_chi_helper.dart    # Thien Can + Dia Chi calculations
-    └── hoang_dao_helper.dart  # Gio Hoang Dao lookup (6 patterns)
+widgetin/                          # Monorepo root
+├── CLAUDE.md                      # Claude agent knowledge base
+├── agent.md                       # Universal agent guidelines
+├── gemini.md                      # Gemini agent knowledge base
+├── LICENSE
+├── .gitignore
+├── .claude/settings.local.json    # Claude Code permissions
+│
+├── app/                           # Flutter application
+│   ├── pubspec.yaml               # Dependencies & metadata
+│   ├── pubspec.lock               # Resolved dependency versions
+│   ├── analysis_options.yaml      # Dart linting rules
+│   ├── lib/
+│   │   ├── main.dart              # Entry point — MultiProvider → WidgetinApp
+│   │   ├── app.dart               # MaterialApp → HomeShell, Material You theme
+│   │   ├── models/
+│   │   │   └── lunar_date.dart    # Immutable LunarDate data class
+│   │   ├── services/
+│   │   │   └── lunar_calendar_service.dart  # Solar→Lunar + Can Chi + Hoang Dao
+│   │   ├── providers/
+│   │   │   └── lunar_calendar_provider.dart # ChangeNotifier wrapping service
+│   │   ├── screens/
+│   │   │   ├── home_shell.dart        # Scaffold + NavigationBar + IndexedStack
+│   │   │   ├── dashboard_screen.dart  # Widget gallery with preview cards
+│   │   │   └── settings_screen.dart   # Theme, About, Licenses
+│   │   ├── widgets/
+│   │   │   ├── widget_preview_card.dart      # Reusable card (icon, title, preview, button)
+│   │   │   └── lunar_calendar_preview.dart   # Lunar date + Can Chi + Hoang Dao preview
+│   │   ├── theme/
+│   │   │   ├── app_theme.dart         # ThemeData factory (Material You)
+│   │   │   └── color_tokens.dart      # Pastel color constants
+│   │   └── utils/
+│   │       ├── can_chi_helper.dart    # Sexagenary cycle calculations
+│   │       └── hoang_dao_helper.dart  # Auspicious hours lookup (6 patterns)
+│   ├── test/
+│   │   ├── widget_test.dart           # App integration test
+│   │   ├── providers/
+│   │   │   └── lunar_calendar_provider_test.dart  # 6 tests
+│   │   ├── screens/
+│   │   │   ├── home_shell_test.dart       # 4 tests
+│   │   │   ├── dashboard_screen_test.dart # 7 tests
+│   │   │   └── settings_screen_test.dart  # 5 tests
+│   │   ├── services/
+│   │   │   └── lunar_calendar_service_test.dart   # 8 tests
+│   │   └── utils/
+│   │       ├── can_chi_helper_test.dart   # 15 tests
+│   │       └── hoang_dao_helper_test.dart # 10 tests
+│   └── android/                   # Android native code
+│       ├── app/build.gradle       # minSdk 21, targetSdk 34
+│       └── app/src/main/
+│           ├── AndroidManifest.xml
+│           └── kotlin/com/widgetin/widgetin/MainActivity.kt
+│
+├── website/                       # Future — landing page / docs site
+│
+└── plans/20260207-1200-widgetin-mvp/
+    ├── plan.md                    # Master plan with phase tracker
+    ├── phase-01-project-setup.md
+    ├── phase-02-lunar-calendar-logic.md
+    ├── phase-03-dashboard-ui.md
+    ├── phase-04-widget-editor.md
+    ├── phase-05-android-native-widget.md
+    ├── phase-06-polish-testing.md
+    ├── research/                  # Technical research documents
+    └── reports/                   # Code review & test reports
 ```
 
 ## Coding Conventions
 
 ### Dart/Flutter Style
-- **Immutable models**: Use `const` constructors, `final` fields, `copyWith()` pattern
+- **Immutable models**: `const` constructors, `final` fields, `copyWith()` pattern
 - **Private constructors** for utility classes: `ClassName._();`
 - **Static methods** for pure helper functions (no instance state)
 - **Linting**: `flutter_lints` enabled — no print statements, prefer const
-- **Null safety**: Full null safety, use `!` only when guaranteed non-null (e.g., library output)
+- **Null safety**: Full null safety, use `!` only when guaranteed non-null
 - **Import style**: Relative imports within `lib/`, package imports for dependencies
 
 ### Naming Conventions
 - Files: `snake_case.dart`
 - Classes: `PascalCase`
 - Methods/variables: `camelCase`
-- Constants: `camelCase` (Dart convention, not SCREAMING_SNAKE)
+- Constants: `camelCase` (Dart convention)
 - Test files: `<source_file>_test.dart` in mirrored directory structure
 
 ### Architecture Patterns
@@ -72,74 +121,47 @@ lib/
 | Dark Text | `#2D2D2D` | Primary text |
 | Muted Text | `#8B8B8B` | Secondary text |
 
-Theme uses `ColorScheme.fromSeed(seedColor: sageGreen)` with Material You (`useMaterial3: true`).
-
 ## Domain Knowledge — Vietnamese Lunar Calendar
 
 ### Key Concepts
-- **Am Lich (Âm Lịch)**: Vietnamese lunar calendar
-- **Can Chi (Thiên Can + Địa Chi)**: Sexagenary cycle — 10 Heavenly Stems + 12 Earthly Branches
-- **Thien Can (10)**: Giáp, Ất, Bính, Đinh, Mậu, Kỷ, Canh, Tân, Nhâm, Quý
-- **Dia Chi (12)**: Tý, Sửu, Dần, Mão, Thìn, Tỵ, Ngọ, Mùi, Thân, Dậu, Tuất, Hợi
-- **Gio Hoang Dao (Giờ Hoàng Đạo)**: 6 auspicious hours per day, determined by day's Dia Chi
-- **Nhuan (Nhuận)**: Leap month in lunar calendar
+- **Âm Lịch**: Vietnamese lunar calendar
+- **Can Chi**: Sexagenary cycle — 10 Heavenly Stems (Thiên Can) + 12 Earthly Branches (Địa Chi)
+- **Giờ Hoàng Đạo**: 6 auspicious hours per day, determined by day's Địa Chi
+- **Nhuận**: Leap month in lunar calendar
 
 ### Can Chi Formulas
-- Year Can: `(lunarYear + 6) % 10`
-- Year Chi: `(lunarYear + 8) % 12`
-- Month Can: `(yearCanIndex * 2 + lunarMonth + 1) % 10`
-- Month Chi: `(lunarMonth + 1) % 12`
-- Day Can: `(JDN + 9) % 10`
-- Day Chi: `(JDN + 1) % 12`
+- Year Can: `(lunarYear + 6) % 10` / Year Chi: `(lunarYear + 8) % 12`
+- Day Can: `(JDN + 9) % 10` / Day Chi: `(JDN + 1) % 12`
 
-### Hoang Dao Patterns
-6 static lookup groups indexed by day Chi pairs:
-- Group 0: Tý/Ngọ → Group 1: Sửu/Mùi → Group 2: Dần/Thân
-- Group 3: Mão/Dậu → Group 4: Thìn/Tuất → Group 5: Tỵ/Hợi
-Each group returns 6 auspicious hours with Vietnamese time labels.
-
-## Key Constraints
-
-- **RemoteViews only** for Android widget — no custom fonts, limited View types
-- **updatePeriodMillis** minimum 15 minutes; daily update sufficient for calendar
-- **Lunar converter** verified range: 1900–2100
-- **Can Chi**: Pure modular arithmetic, no lookup tables needed
-- **Hoang Dao**: 6 static patterns, no astronomical calculation
-- **Android**: minSdk 21 (required by `home_widget`), targetSdk 34
+### Verification Dates
+- Tết 2024 = Feb 10 (Giáp Thìn) / Tết 2025 = Jan 29 (Ất Tỵ)
 
 ## Project Status
 
 | Phase | Description | Status |
 |-------|-------------|--------|
-| 01 | Project Setup & Architecture | Done |
-| 02 | Lunar Calendar Core Logic | Done |
-| 03 | Dashboard UI (bottom nav, gallery, settings) | Pending |
+| 01 | Project Setup & Architecture | **Done** |
+| 02 | Lunar Calendar Core Logic | **Done** |
+| 03 | Dashboard UI (bottom nav, gallery, settings) | **Done** |
 | 04 | Widget Editor (customization UI) | Pending |
 | 05 | Android Native Widget (Kotlin RemoteViews) | Pending |
 | 06 | Polish & Testing (E2E, performance) | Pending |
 
-## Testing Guidelines
+## Key Constraints
 
-- Tests mirror source structure: `test/services/`, `test/utils/`
-- Use descriptive `group()` and `test()` names in Vietnamese context
-- Verify against known dates (e.g., Tết 2024 = Feb 10, Tết 2025 = Jan 29)
-- Test edge cases: leap months, year boundaries, JDN calculations
-- Run: `flutter test`
-- Analyze: `flutter analyze`
-
-## Plans & Documentation
-
-All implementation plans are in `plans/20260207-1200-widgetin-mvp/`:
-- `plan.md` — Master plan with phase tracker
-- `phase-0X-*.md` — Individual phase specs
-- `research/` — Research documents (Flutter home_widget, lunar algorithms)
-- `reports/` — Code review and test verification reports
+- RemoteViews only for Android widget — no custom fonts, limited View types
+- `updatePeriodMillis` min 15min; daily update sufficient
+- Lunar converter verified 1900–2100
+- Android: minSdk 21, targetSdk 34
+- Flutter path: `C:\code\flutter\bin`
 
 ## Common Commands
 
 ```bash
-flutter test                    # Run all tests
+cd app/
+flutter test                    # Run all tests (68 total)
 flutter analyze                 # Static analysis
+flutter run -d chrome           # Run on Chrome
 flutter run                     # Run on connected device
 flutter build apk --release     # Build release APK
 ```

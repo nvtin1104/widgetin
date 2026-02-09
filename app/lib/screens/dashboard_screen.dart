@@ -44,11 +44,7 @@ class DashboardScreen extends StatelessWidget {
                 subtitle: 'Vietnamese Lunar Calendar',
                 preview: LunarCalendarPreview(lunarDate: lunar),
                 onCustomize: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Widget Editor coming in Phase 04'),
-                    ),
-                  );
+                  Navigator.pushNamed(context, '/editor');
                 },
               );
             },

@@ -19,7 +19,7 @@ android {
 
     defaultConfig {
         applicationId "com.widgetin.widgetin"
-        minSdk 21
+        minSdkVersion flutter.minSdkVersion
         targetSdk 34
         versionCode 1
         versionName "1.0.0"
