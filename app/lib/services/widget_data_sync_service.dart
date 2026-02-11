@@ -42,11 +42,17 @@ class WidgetDataSyncService {
         'widget_text_color',
         config.textColor.toARGB32(),
       ),
+      HomeWidget.saveWidgetData(
+        'widget_gradient_end_color',
+        config.gradientEndColor.toARGB32(),
+      ),
       HomeWidget.saveWidgetData('widget_border_radius', config.borderRadius),
       HomeWidget.saveWidgetData('widget_type', config.widgetType.index),
       HomeWidget.saveWidgetData('widget_bg_type', config.backgroundType.index),
+      HomeWidget.saveWidgetData('widget_typo_style', config.typographyStyle.index),
       HomeWidget.saveWidgetData('widget_show_year', config.showYearInfo),
       HomeWidget.saveWidgetData('widget_show_zodiac', config.showZodiacHours),
+      HomeWidget.saveWidgetData('widget_show_solar', config.showSolarTerms),
     ]);
   }
 
