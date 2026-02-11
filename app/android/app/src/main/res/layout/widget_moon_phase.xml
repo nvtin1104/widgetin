@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="14dp"
+    android:background="@drawable/widget_background"
+    android:clipToOutline="true">
+
+    <!-- Moon emoji / symbol area -->
+    <TextView
+        android:id="@+id/tv_moon_icon"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:gravity="center"
+        android:textSize="36sp"
+        android:text="🌙" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginStart="10dp">
+
+        <!-- Lunar date -->
+        <TextView
+            android:id="@+id/tv_lunar_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="--/--" />
+
+        <!-- Solar date small -->
+        <TextView
+            android:id="@+id/tv_solar_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:alpha="0.6"
+            android:text="--/--/----" />
+
+        <!-- Can chi -->
+        <TextView
+            android:id="@+id/tv_can_chi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:layout_marginTop="2dp"
+            android:alpha="0.7"
+            android:text="" />
+
+        <!-- Zodiac hours -->
+        <TextView
+            android:id="@+id/tv_hoang_dao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:layout_marginTop="2dp"
+            android:alpha="0.5"
+            android:text="" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -4,37 +4,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="12dp"
+    android:gravity="center"
+    android:padding="16dp"
     android:background="@drawable/widget_background"
     android:clipToOutline="true">
+
+    <!-- Large time display -->
+    <TextView
+        android:id="@+id/tv_lunar_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="36sp"
+        android:fontFamily="sans-serif-thin"
+        android:letterSpacing="0.05"
+        android:text="--/--" />
 
     <TextView
         android:id="@+id/tv_solar_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:textSize="13sp"
+        android:layout_marginTop="4dp"
         android:text="--/--/----" />
-
-    <TextView
-        android:id="@+id/tv_lunar_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:text="--/--" />
 
     <TextView
         android:id="@+id/tv_can_chi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:text="--- - ---" />
+        android:textSize="11sp"
+        android:layout_marginTop="2dp"
+        android:alpha="0.7"
+        android:text="" />
 
     <TextView
         android:id="@+id/tv_hoang_dao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="11sp"
-        android:text="Giờ tốt: ---" />
+        android:textSize="10sp"
+        android:layout_marginTop="4dp"
+        android:alpha="0.5"
+        android:text="" />
 
 </LinearLayout>
