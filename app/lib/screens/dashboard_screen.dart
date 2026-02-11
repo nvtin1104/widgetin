@@ -71,9 +71,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                     ),
                   );
                 }
-                return Hero(
-                  tag: 'lunar-widget-card',
-                  child: WidgetPreviewCard(
+                return WidgetPreviewCard(
                     icon: Icons.calendar_month_rounded,
                     title: 'Âm Lịch',
                     subtitle: configProvider.config.widgetType.description,
@@ -86,7 +84,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                         ),
                       );
                     },
-                  ),
                 );
               },
             ),

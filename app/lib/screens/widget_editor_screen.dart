@@ -12,11 +12,9 @@ class WidgetEditorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Hero(
-      tag: 'lunar-widget-card',
-      child: Scaffold(
-        appBar: AppBar(title: const Text('Tùy chỉnh Widget')),
-        body: Consumer<WidgetConfigProvider>(
+    return Scaffold(
+      appBar: AppBar(title: const Text('Tùy chỉnh Widget')),
+      body: Consumer<WidgetConfigProvider>(
           builder: (context, provider, child) {
             final config = provider.config;
 
@@ -163,8 +161,7 @@ class WidgetEditorScreen extends StatelessWidget {
             );
           },
         ),
-      ),
-    );
+      );
   }
 
   Future<void> _saveConfig(
