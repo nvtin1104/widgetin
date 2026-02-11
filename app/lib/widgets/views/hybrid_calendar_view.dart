@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../models/lunar_date.dart';
 import '../../models/widget_config.dart';
 
@@ -18,7 +19,16 @@ class HybridCalendarView extends StatelessWidget {
     final textColor = config.textColor;
     final mutedColor = textColor.withValues(alpha: 0.5);
     final accentColor = textColor.withValues(alpha: 0.7);
-    final fontFamily = config.typographyStyle.fontFamily;
+    final fontName = config.typographyStyle.googleFontFamily;
+    TextStyle gFont({double? fontSize, FontWeight? fontWeight, Color? color, double? height}) {
+      return GoogleFonts.getFont(
+        fontName,
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        color: color,
+        height: height,
+      );
+    }
     final monthLabel = lunar.isLeapMonth
         ? 'Tháng ${lunar.lunarMonth} (nhuận)'
         : 'Tháng ${lunar.lunarMonth}';
@@ -34,18 +44,17 @@ class HybridCalendarView extends StatelessWidget {
             children: [
               Text(
                 '${lunar.lunarDay}',
-                style: TextStyle(
+                style: gFont(
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
                   color: textColor,
-                  fontFamily: fontFamily,
                   height: 1,
                 ),
               ),
               const SizedBox(height: 2),
               Text(
                 monthLabel,
-                style: TextStyle(fontSize: 11, color: mutedColor, fontFamily: fontFamily),
+                style: gFont(fontSize: 11, color: mutedColor),
               ),
             ],
           ),
@@ -66,29 +75,28 @@ class HybridCalendarView extends StatelessWidget {
             children: [
               Text(
                 '${lunar.solarDate.day}/${lunar.solarDate.month}/${lunar.solarDate.year}',
-                style: TextStyle(fontSize: 11, color: mutedColor, fontFamily: fontFamily),
+                style: gFont(fontSize: 11, color: mutedColor),
               ),
               const SizedBox(height: 2),
               Text(
                 lunar.canChiDay,
-                style: TextStyle(
+                style: gFont(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: textColor,
-                  fontFamily: fontFamily,
                 ),
               ),
               if (config.showYearInfo) ...[
                 Text(
                   'Năm ${lunar.canChiYear}',
-                  style: TextStyle(fontSize: 12, color: accentColor, fontFamily: fontFamily),
+                  style: gFont(fontSize: 12, color: accentColor),
                 ),
               ],
               if (config.showZodiacHours) ...[
                 const SizedBox(height: 4),
                 Text(
                   lunar.hoangDaoHours.take(3).join(' · '),
-                  style: TextStyle(fontSize: 10, color: mutedColor, fontFamily: fontFamily),
+                  style: gFont(fontSize: 10, color: mutedColor),
                   overflow: TextOverflow.ellipsis,
                 ),
               ],

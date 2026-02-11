@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../models/lunar_date.dart';
 import '../../models/widget_config.dart';
 import '../../utils/moon_phase_helper.dart';
@@ -19,7 +20,16 @@ class MoonPhaseView extends StatelessWidget {
   Widget build(BuildContext context) {
     final textColor = config.textColor;
     final mutedColor = textColor.withValues(alpha: 0.5);
-    final fontFamily = config.typographyStyle.fontFamily;
+    final fontName = config.typographyStyle.googleFontFamily;
+    TextStyle gFont({double? fontSize, FontWeight? fontWeight, Color? color, double? height}) {
+      return GoogleFonts.getFont(
+        fontName,
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        color: color,
+        height: height,
+      );
+    }
     final phase = MoonPhaseHelper.getMoonPhase(lunar.solarDate);
     final phaseName = MoonPhaseHelper.getPhaseName(phase);
     final monthLabel = lunar.isLeapMonth
@@ -52,33 +62,31 @@ class MoonPhaseView extends StatelessWidget {
             children: [
               Text(
                 phaseName,
-                style: TextStyle(
+                style: gFont(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: textColor,
-                  fontFamily: fontFamily,
                 ),
               ),
               Text(
                 '${lunar.lunarDay} $monthLabel',
-                style: TextStyle(
+                style: gFont(
                   fontSize: 12,
                   color: textColor,
-                  fontFamily: fontFamily,
                 ),
               ),
               if (config.showYearInfo) ...[
                 const SizedBox(height: 2),
                 Text(
                   lunar.canChiDay,
-                  style: TextStyle(fontSize: 11, color: mutedColor, fontFamily: fontFamily),
+                  style: gFont(fontSize: 11, color: mutedColor),
                 ),
               ],
               if (config.showZodiacHours) ...[
                 const SizedBox(height: 2),
                 Text(
                   lunar.hoangDaoHours.take(2).join(' · '),
-                  style: TextStyle(fontSize: 10, color: mutedColor, fontFamily: fontFamily),
+                  style: gFont(fontSize: 10, color: mutedColor),
                   overflow: TextOverflow.ellipsis,
                 ),
               ],

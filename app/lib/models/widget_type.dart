@@ -67,14 +67,15 @@ enum TypographyStyle {
     }
   }
 
-  String? get fontFamily {
+  /// Google Font family name for each style
+  String get googleFontFamily {
     switch (this) {
       case TypographyStyle.modern:
-        return null; // system default sans-serif
+        return 'Be Vietnam Pro';
       case TypographyStyle.classic:
-        return 'serif';
+        return 'Noto Serif';
       case TypographyStyle.calligraphy:
-        return 'serif'; // fallback; can be replaced with bundled font
+        return 'Dancing Script';
     }
   }
 }

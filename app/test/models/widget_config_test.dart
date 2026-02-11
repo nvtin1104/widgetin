@@ -78,12 +78,12 @@ void main() {
       expect(TypographyStyle.values.length, 3);
     });
 
-    test('modern has null fontFamily', () {
-      expect(TypographyStyle.modern.fontFamily, isNull);
+    test('modern has Be Vietnam Pro font', () {
+      expect(TypographyStyle.modern.googleFontFamily, 'Be Vietnam Pro');
     });
 
-    test('classic has serif fontFamily', () {
-      expect(TypographyStyle.classic.fontFamily, 'serif');
+    test('classic has Noto Serif font', () {
+      expect(TypographyStyle.classic.googleFontFamily, 'Noto Serif');
     });
   });
 }
